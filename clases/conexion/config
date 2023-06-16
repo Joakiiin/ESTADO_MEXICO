@@ -2,8 +2,8 @@
     "conexion":{
         "server" : "localhost",
         "user" : "root",
-        "password" : "Adm1n15tr4D0r11!",
-        "database" : "estados",
+        "password" : "Contraseña",
+        "database" : "BD",
         "port": "3306"
     }
 }
