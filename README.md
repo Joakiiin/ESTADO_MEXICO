@@ -16,3 +16,4 @@ https://github.com/Joakiiin/portafolio
 - Descargar la carpeta del proyecto e implementarla ya sea en tu localhost.
 - Importar la base de datos en tu gestor de base de datos, la base de datos es algo pesada, recomiendo configurar para aumentar el tiempo de espera para que no te mate el proceso a medias, otra opcion que fue lo que yo hice fue descargar el archivo xlx desde la web de correos de mexico e importar tabla por tabla, es mas tardado pero sabes perfectamente lo que tienes.
 - Modificar tu archivo config con las credenciales y el nombre de tu base de datos.
+![Ejemplo de imagen](configapi.PNG)
