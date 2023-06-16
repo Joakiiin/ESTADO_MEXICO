@@ -34,3 +34,29 @@ https://github.com/Joakiiin/portafolio
 - Una vez descargado e instalado al igual que el metodo 1 copiaran la url sustituyendo $_codigo por un codigo postal de México, le indican al software que el metodo a utilizar es GET y dan click en SEND, podran apreciar en la imagen inferior los resultados de un correcto funcionamiento.
 
 ![Ejemplo de imagen](metodo2api.PNG)
+
+# CASO DE USO EN CODIGO
+- Primero que nada genere un archivo llamado datos_estado.php en mi proyecto, dicho archivo contiene el link de la api la cual recibira el parametro del codigo postal por metodo GET.
+```
+<?php
+
+if (isset($_GET['d_codigo'])) {
+  $d_codigo = $_GET['d_codigo'];
+  $datos = json_decode(file_get_contents("http://localhost/MEXICO/estados.php?d_codigo=$d_codigo"), true);
+  if ($datos) {
+    // Si se encontraron datos para el alumno, devolverlos en formato JSON
+    echo json_encode($datos);
+  } else {
+    // Si no se encontraron datos para el alumno, devolver un mensaje de error en formato JSON
+    echo json_encode(['error' => "No se encontraron datos para el paciente con ID $d_codigo"]);
+  }
+}
+?>
+```
+
+- En mi caso muy especifico yo queria utilizar mi API de manera tal que el alumno pudiera llenar la mayoria de sus datos de dirección unicamente con el codigo postal sin que se recargara la pagina, al haber mas de una colonia asociada a un codigo me vi en la necesidad de utilizar JS para poder desplegar los datos.
+
+
+
+- Por ultimo agregue dos formularios, uno con Metodo Get y otro con metodo POST, el get enviara la información mediante js al archivo datos_estado.php el cual devolvera al form que utilizara metodo POST la información del codigo postal que posteriormente sera enviada al documento tecnm01.php.
+- 
