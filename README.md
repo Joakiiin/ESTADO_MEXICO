@@ -137,3 +137,12 @@ function obtenerDatos(event) {
                                     <br>
                                 </div>
 ```
+
+# Resultados
+- Podemos apreciar que implementando las lineas de codigo anteriores nos da el siguiente resultado en el formulario.
+
+  ![Ejemplo de imagen](direccion.PNG)
+
+  ![Ejemplo de imagen](direccion2.PNG)
+
+  - Podemos apreciar es una manera sencilla de utilizarlo, indudablemente existen otras maneras pero fue lo que me dio resultado para mi necesidad en especifico, ustedes pueden modificar parametros para obtener mas o menos información segun lo que se requiera.
