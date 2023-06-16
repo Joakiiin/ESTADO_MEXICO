@@ -13,4 +13,5 @@ https://github.com/Joakiiin/portafolio
 - Base de datos obtenida directamente de la pagina de correos de México;
 
 #INSTALACION E IMPLEMENTACION
-- Descargar la carpeta del proyecto e implementarla ya sea en tu localhost
+- Descargar la carpeta del proyecto e implementarla ya sea en tu localhost.
+- Importar la base de datos en tu gestor de base de datos, la base de datos es algo pesada, recomiendo configurar para aumentar el tiempo de espera para que no te mate el proceso a medias, otra opcion que fue lo que yo hice fue descargar el archivo xlx desde la web de correos de mexico e importar tabla por tabla, es mas tardado pero sabes perfectamente lo que tienes.
