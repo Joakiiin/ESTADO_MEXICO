@@ -56,7 +56,84 @@ if (isset($_GET['d_codigo'])) {
 
 - En mi caso muy especifico yo queria utilizar mi API de manera tal que el alumno pudiera llenar la mayoria de sus datos de dirección unicamente con el codigo postal sin que se recargara la pagina, al haber mas de una colonia asociada a un codigo me vi en la necesidad de utilizar JS para poder desplegar los datos.
 
-
+```
+<script>
+function obtenerDatos(event) {
+  event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+  const d_codigo = document.getElementById("d_codigo").value;
+  fetch(`procesos/alumno/crud/datos_estado.php?d_codigo=${d_codigo}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert(data.error); // Muestra un mensaje de error si no se encontraron datos
+      } else {
+        console.log(data);
+        document.getElementById("estado").value = data[0].d_estado; // Actualiza el campo de estado con los datos del estado
+        document.getElementById("cp").value = data[0].d_codigo; // Actualiza el campo de cp con los datos del estado
+        document.getElementById("municipio").value = data[0].D_mnpio;
+        //Ciudades
+        const ciudadSelect = document.getElementById("ciudad");
+        ciudadSelect.innerHTML = ""; // Borra todas las opciones previas del menú desplegable
+        for (let i = 0; i < data.length; i++) {
+          const ciudad = data[i].d_ciudad;
+          const option = document.createElement("option");
+          option.text = ciudad;
+          ciudadSelect.add(option); // Agrega la opción al menú desplegable
+        }
+        //Colonias
+        const coloniaSelect = document.getElementById("colonia");
+        coloniaSelect.innerHTML = ""; // Borra todas las opciones previas del menú desplegable
+        for (let i = 0; i < data.length; i++) {
+          const colonia = data[i].d_asenta;
+          const option = document.createElement("option");
+          option.text = colonia;
+          coloniaSelect.add(option); // Agrega la opción al menú desplegable
+        }
+      }
+    })
+    .catch(error => console.error(error));
+}
+</script>
+```
 
 - Por ultimo agregue dos formularios, uno con Metodo Get y otro con metodo POST, el get enviara la información mediante js al archivo datos_estado.php el cual devolvera al form que utilizara metodo POST la información del codigo postal que posteriormente sera enviada al documento tecnm01.php.
-- 
+
+```
+<form method="get" action="procesos/alumno/crud/datos_estado.php" onsubmit="obtenerDatos(event)">
+                        <label for="d_codigo">CP:</label>
+                        <input type="text" id="d_codigo" name="d_codigo" value="<?php echo isset($_GET['d_codigo']) ? $_GET['d_codigo'] : ''; ?>">
+                        <button type="submit">Enviar</button>
+                        </form>
+                        <br>
+                        <form id="frmSolicitud" action="formatos/tecnm01.php" target="_blank" method="post" onsubmit="return agregarFechasAlumno()"  enctype="multipart/form-data">
+                        <div class="form-gruop">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="cp">C.P:</label>
+                                    <input type="text" name="cp" class="form-control" id="cp" placeholder="Ej.: 07209">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="estado">Estado:</label>
+                                    <input type="text" name="estado" class="form-control" id="estado" placeholder="Ej.: Ciudad de Mèxico">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ciudad">Ciudad:</label>
+                                    <select name="ciudad" class="form-control" id="ciudad"></select>
+                                    <br>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="municipio">Municipio/Alcaldia:</label>
+                                    <input type="text" name="municipio" class="form-control" id="municipio" required placeholder="Ej.: Gustavo A. Madero"></select>
+                                    <br>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="colonia">Colonia:</label>
+                                    <select name="colonia" class="form-control" id="colonia" required placeholder="Ej.: Guadalipe Victoria"></select>
+                                    <br>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="calle">Calle y Numero:</label>
+                                    <input type="text" name="calle" class="form-control" id="calle" required placeholder="Ej.: Palmira #13">
+                                    <br>
+                                </div>
+```
